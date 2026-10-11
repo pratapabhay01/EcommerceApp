@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | ShopEase</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">ShopEase<span>.</span></a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="orders.html">My Orders</a>
+        </nav>
+
+        <a href="cart.html" class="cart-button">
+            🛒 Cart <span id="cartCount">0</span>
+        </a>
+    </header>
+
+    <main class="cart-page">
+        <div class="cart-heading">
+            <p class="eyebrow">YOUR SHOPPING BAG</p>
+            <h1>Shopping Cart</h1>
+            <p>Review your items before checkout.</p>
+        </div>
+
+        <div class="cart-layout">
+            <section class="cart-items-section">
+                <div id="cartItems">
+                    <p>Loading cart...</p>
+                </div>
+
+                <a href="index.html#products" class="continue-shopping">
+                    ← Continue Shopping
+                </a>
+            </section>
+
+            <aside class="cart-summary">
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="shipping">₹0</span>
+                </div>
+
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span id="total">₹0</span>
+                </div>
+
+                <button id="checkoutButton" class="checkout-button">
+                    Proceed to Checkout →
+                </button>
+
+                <p class="secure-note">🔒 Secure order processing</p>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <a href="index.html" class="logo">ShopEase<span>.</span></a>
+        <p>Making online shopping simple and enjoyable.</p>
+    </footer>
+
+    <script src="cart.js"></script>
+</body>
+</html>

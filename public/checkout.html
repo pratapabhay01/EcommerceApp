@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ShopEase</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .checkout-container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+
+        .checkout-container h1 {
+            margin-bottom: 10px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .checkout-form,
+        .order-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+        }
+
+        .checkout-form label {
+            display: block;
+            margin: 15px 0 6px;
+            font-weight: 600;
+        }
+
+        .checkout-form input,
+        .checkout-form textarea {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .checkout-form textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .checkout-form button,
+        .back-button {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .checkout-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 18px 0;
+        }
+
+        .summary-total {
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        #checkoutMessage {
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 650px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="checkout-container">
+        <h1>Checkout</h1>
+        <p>Enter your delivery details to place your order.</p>
+
+        <div class="checkout-layout">
+
+            <section class="checkout-form">
+                <h2>Delivery Information</h2>
+
+                <form id="checkoutForm">
+                    <label for="fullName">Full Name</label>
+                    <input
+                        id="fullName"
+                        type="text"
+                        maxlength="100"
+                        autocomplete="name"
+                        required
+                    >
+
+                    <label for="phone">Phone Number</label>
+                    <input
+                        id="phone"
+                        type="tel"
+                        inputmode="numeric"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        autocomplete="tel"
+                        placeholder="10-digit mobile number"
+                        required
+                    >
+
+                    <label for="address">Full Address</label>
+                    <textarea
+                        id="address"
+                        maxlength="300"
+                        autocomplete="street-address"
+                        placeholder="House number, street, area"
+                        required
+                    ></textarea>
+
+                    <label for="city">City</label>
+                    <input
+                        id="city"
+                        type="text"
+                        maxlength="100"
+                        autocomplete="address-level2"
+                        required
+                    >
+
+                    <label for="pincode">PIN Code</label>
+                    <input
+                        id="pincode"
+                        type="text"
+                        inputmode="numeric"
+                        pattern="[0-9]{6}"
+                        maxlength="6"
+                        autocomplete="postal-code"
+                        placeholder="6-digit PIN code"
+                        required
+                    >
+
+                    <button type="submit" id="placeOrderButton">
+                        Place Order
+                    </button>
+                </form>
+
+                <div id="checkoutMessage" role="status" aria-live="polite"></div>
+            </section>
+
+            <section class="order-summary">
+                <h2>Order Summary</h2>
+
+                <div id="checkoutItems">
+                    Loading cart...
+                </div>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="checkoutSubtotal">₹0.00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>FREE</span>
+                </div>
+
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span id="checkoutTotal">₹0.00</span>
+                </div>
+
+                <a class="back-button" href="cart.html">
+                    Back to Cart
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="checkout.js"></script>
+
+</body>
+</html>

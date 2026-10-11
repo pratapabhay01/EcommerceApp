@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | ShopEase</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container {
+            max-width: 430px;
+            margin: 60px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .auth-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .auth-container p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .auth-container label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: 600;
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .auth-container button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .auth-container button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .auth-container .bottom-text {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .bottom-text a {
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <h1>Create Account</h1>
+        <p>Join ShopEase and start shopping!</p>
+
+        <form id="registerForm">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required maxlength="80"
+                   autocomplete="name" placeholder="Enter your name">
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required
+                   autocomplete="email" placeholder="Enter your email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required minlength="8"
+                   autocomplete="new-password" placeholder="Minimum 8 characters">
+
+            <button type="submit" id="registerButton">Create Account</button>
+        </form>
+
+        <div id="message" role="status" aria-live="polite"></div>
+
+        <p class="bottom-text">
+            Already have an account?
+            <a href="login.html">Login here</a>
+        </p>
+
+        <p class="bottom-text">
+            <a href="index.html">← Back to Shop</a>
+        </p>
+    </div>
+
+    <script>
+        const form = document.getElementById("registerForm");
+        const message = document.getElementById("message");
+        const button = document.getElementById("registerButton");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            message.textContent = "";
+            button.disabled = true;
+            button.textContent = "Creating account...";
+
+            try {
+                const response = await fetch("/api/auth/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById("name").value.trim(),
+                        email: document.getElementById("email").value.trim(),
+                        password: document.getElementById("password").value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Registration failed.");
+                }
+
+                message.style.color = "green";
+                message.textContent =
+                    "Account created successfully! Redirecting to login...";
+
+                form.reset();
+
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1200);
+
+            } catch (error) {
+                message.style.color = "crimson";
+                message.textContent = error.message;
+            } finally {
+                button.disabled = false;
+                button.textContent = "Create Account";
+            }
+        });
+    </script>
+
+</body>
+</html>

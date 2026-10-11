@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | ShopEase</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .orders-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .orders-header a {
+            background: #2563eb;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+        .order-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .order-top h3 {
+            margin: 0 0 8px;
+        }
+
+        .order-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .order-status {
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-confirmed {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-shipped {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .status-delivered {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .order-products {
+            padding: 15px 0;
+        }
+
+        .order-product {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 8px 0;
+        }
+
+        .order-total {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .delivery-info {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .empty-orders {
+            text-align: center;
+            background: white;
+            padding: 45px 20px;
+            border-radius: 12px;
+        }
+
+        .empty-orders a {
+            color: #2563eb;
+        }
+
+        #ordersMessage {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .orders-container {
+                padding: 12px;
+            }
+
+            .order-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="orders-container">
+
+        <div class="orders-header">
+            <div>
+                <h1>My Orders 📦</h1>
+                <p>Track your purchases and delivery status.</p>
+            </div>
+
+            <a href="index.html">Continue Shopping</a>
+        </div>
+
+        <div id="ordersMessage" role="status" aria-live="polite">
+            Loading your orders...
+        </div>
+
+        <div id="ordersList"></div>
+
+    </main>
+
+    <script src="orders.js"></script>
+
+</body>
+</html>

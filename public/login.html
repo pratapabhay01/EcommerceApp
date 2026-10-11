@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ShopEase</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .auth-container {
+            max-width: 430px;
+            margin: 60px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .auth-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .auth-container p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .auth-container label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: 600;
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .auth-container button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .auth-container button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .auth-container .bottom-text {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .bottom-text a {
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <h1>Welcome Back!</h1>
+        <p>Login to your ShopEase account.</p>
+
+        <form id="loginForm">
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" id="loginButton">Login</button>
+
+        </form>
+
+        <div id="message" role="status" aria-live="polite"></div>
+
+        <p class="bottom-text">
+            Don't have an account?
+            <a href="register.html">Register here</a>
+        </p>
+
+        <p class="bottom-text">
+            <a href="index.html">← Back to Shop</a>
+        </p>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+        const loginButton = document.getElementById("loginButton");
+
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            message.textContent = "";
+            loginButton.disabled = true;
+            loginButton.textContent = "Logging in...";
+
+            try {
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value;
+
+                const response = await fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Login failed.");
+                }
+
+                if (!data.token || !data.user) {
+                    throw new Error("Login response is incomplete. Please try again.");
+                }
+
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("user", JSON.stringify(data.user));
+
+                message.style.color = "green";
+                message.textContent = "Login successful! Redirecting...";
+
+                window.location.replace("/index.html");
+
+            } catch (error) {
+                message.style.color = "crimson";
+                message.textContent =
+                    error.message || "Unable to login. Please try again.";
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = "Login";
+            }
+        });
+    </script>
+
+</body>
+</html>
